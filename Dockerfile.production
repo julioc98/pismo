@@ -1,0 +1,12 @@
+# ./Dockerfile.production
+FROM golang as builder
+WORKDIR /pismo
+COPY . .
+RUN go mod vendor
+RUN CGO_ENABLED=0 GOOS=linux go build -a -tags pismo -o build/pismo ./api
+
+FROM alpine
+COPY --from=builder /pismo/build/pismo app
+ENV PORT 5001
+EXPOSE 5001
+ENTRYPOINT ["/app"]
