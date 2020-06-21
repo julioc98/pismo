@@ -1,0 +1,16 @@
+{
+    "name": "pismo",
+    "description": "Desafio Pismo",
+    "keywords": [
+        "Pismo",
+        "Go",
+        "Golang"
+    ],
+    "website": "http://github.com/julioc98/pismo",
+    "repository": "http://github.com/julioc98/pismo",
+    "addons": [
+        {
+          "plan": "heroku-postgresql:hobby-dev"
+        }
+      ]
+}
