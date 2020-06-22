@@ -1,0 +1,31 @@
+version: "3.6"
+
+services:
+  pismo:
+    build: .
+    container_name: pismo-api
+    environment:
+      PGUSER: pismo
+      PGPASSWORD: pismo
+      PGDATABASE: pismo
+      PGHOST: pismodb
+      PGPORT: 5432
+      DB: postgres
+      DATABASE_URL: "host=pismodb port=5432 user=pismo dbname=pismo password=pismo sslmode=disable"
+    expose:
+      - 5001
+    ports:
+      - 5001:5001
+      - 9229:9229
+    depends_on:
+      - pismodb
+
+  pismodb:
+    container_name: pismo-db
+    image: postgres:11.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: pismo
+      POSTGRES_PASSWORD: pismo
+      POSTGRES_DB: pismo
