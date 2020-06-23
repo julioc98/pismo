@@ -11,7 +11,7 @@ import (
 )
 
 // Conn connect on SQL Data Base Gorm
-func Conn() (db *gorm.DB) {
+func Conn() *gorm.DB {
 
 	typeDB := env.Get("DB", "postgres")
 
