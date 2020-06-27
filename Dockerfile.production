@@ -3,7 +3,7 @@ FROM golang as builder
 WORKDIR /pismo
 COPY . .
 RUN go mod vendor
-RUN CGO_ENABLED=0 GOOS=linux go build -a -tags pismo -o build/pismo ./api
+RUN CGO_ENABLED=0 GOOS=linux go build -a -tags pismo -o build/pismo ./cmd/api
 
 FROM alpine
 COPY --from=builder /pismo/build/pismo app

@@ -5,6 +5,10 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/julioc98/pismo/cmd/api/handler"
+	"github.com/julioc98/pismo/cmd/api/router"
+	"github.com/julioc98/pismo/internal/app/account"
+	db "github.com/julioc98/pismo/internal/db"
 	"github.com/julioc98/pismo/pkg/env"
 	"github.com/julioc98/pismo/pkg/middleware"
 )
@@ -17,8 +21,18 @@ func handlerHi(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 
+	conn := db.Conn()
+	defer conn.Close()
+	db.Migrate(conn)
+
 	r := mux.NewRouter()
 	r.Use(middleware.Logging)
+
+	accountRep := account.NewPostgresRepository(conn)
+	accountService := account.NewService(accountRep)
+	accountHandler := handler.NewAccountHandler(accountService)
+
+	router.SetAccountRoutes(accountHandler, r.PathPrefix("/accounts").Subrouter())
 
 	r.HandleFunc("/", handlerHi)
 	http.Handle("/", r)
