@@ -26,7 +26,6 @@ func (r *postgresRepository) Get(id int) (*Transaction, error) {
 	var transaction Transaction
 
 	if dbc := r.db.Set("gorm:auto_preload", true).First(&transaction, id); dbc.Error != nil {
-		// if dbc := r.db.Preload("Accounts").Preload("Operations").First(&transaction, id); dbc.Error != nil {
 		return nil, dbc.Error
 	}
 	return &transaction, nil
