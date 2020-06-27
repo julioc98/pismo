@@ -8,6 +8,7 @@ import (
 	"github.com/julioc98/pismo/cmd/api/handler"
 	"github.com/julioc98/pismo/cmd/api/router"
 	"github.com/julioc98/pismo/internal/app/account"
+	"github.com/julioc98/pismo/internal/app/transaction"
 	db "github.com/julioc98/pismo/internal/db"
 	"github.com/julioc98/pismo/pkg/env"
 	"github.com/julioc98/pismo/pkg/middleware"
@@ -33,6 +34,11 @@ func main() {
 	accountHandler := handler.NewAccountHandler(accountService)
 
 	router.SetAccountRoutes(accountHandler, r.PathPrefix("/accounts").Subrouter())
+
+	transactionRep := transaction.NewPostgresRepository(conn)
+	transactionService := transaction.NewService(transactionRep)
+	transactionHandler := handler.NewTransactionHandler(transactionService)
+	router.SetTransactionRoutes(transactionHandler, r.PathPrefix("/transactions").Subrouter())
 
 	r.HandleFunc("/", handlerHi)
 	http.Handle("/", r)
