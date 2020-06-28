@@ -5,7 +5,7 @@ test/docker:
 	docker-compose run pismo make test
 
 run/api:
-	go run api/main.go
+	go run cmd/api/main.go
 
 run/db:
 	docker-compose up pismodb
