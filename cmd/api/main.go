@@ -36,7 +36,7 @@ func main() {
 	router.SetAccountRoutes(accountHandler, r.PathPrefix("/accounts").Subrouter())
 
 	transactionRep := transaction.NewPostgresRepository(conn)
-	transactionService := transaction.NewService(transactionRep)
+	transactionService := transaction.NewService(transactionRep, accountService)
 	transactionHandler := handler.NewTransactionHandler(transactionService)
 	router.SetTransactionRoutes(transactionHandler, r.PathPrefix("/transactions").Subrouter())
 
