@@ -12,7 +12,7 @@ func Migrate(conn *gorm.DB) {
 	conn.AutoMigrate(&account.Account{}, &transaction.Operation{}, &transaction.Transaction{})
 
 	// Create an Account
-	conn.Create(&account.Account{DocumentNumber: "540.100.249-92"})
+	conn.Create(&account.Account{DocumentNumber: "540.100.249-92", AvailableCreditLimit: 5000.00})
 
 	// Create Operactions
 	conn.Create(&transaction.Operation{ID: 1, Description: "COMPRA A VISTA"})
@@ -24,6 +24,7 @@ func Migrate(conn *gorm.DB) {
 	conn.Create(&transaction.Transaction{
 		AccountID:   1,
 		OperationID: 1,
-		Amount:      -50.55,
+		Amount:      -50.00,
+		Balance:     -50.00,
 	})
 }

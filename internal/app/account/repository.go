@@ -31,3 +31,10 @@ func (r *postgresRepository) Get(id int) (*Account, error) {
 	}
 	return &account, nil
 }
+
+func (r *postgresRepository) Update(id int, account *Account) (*Account, error) {
+	if dbc := r.db.Save(account); dbc.Error != nil {
+		return nil, dbc.Error
+	}
+	return account, nil
+}

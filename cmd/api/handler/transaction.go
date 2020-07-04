@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -36,8 +37,16 @@ func (th *transactionHandler) Add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	err = th.TransactionService.Check(&req)
+	if err != nil {
+		log.Println(err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	id, err := th.TransactionService.Create(&req)
 	if err != nil {
+		log.Println(err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}

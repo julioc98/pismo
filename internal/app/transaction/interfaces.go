@@ -10,4 +10,5 @@ type Repository interface {
 type Service interface {
 	Create(account *Transaction) (int, error)
 	Get(id int) (*Transaction, error)
+	Check(t *Transaction) error
 }
