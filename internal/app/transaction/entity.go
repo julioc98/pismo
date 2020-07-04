@@ -14,6 +14,7 @@ type Transaction struct {
 	OperationID int             `json:"operation_type_id"`
 	Operation   Operation       `json:"operation"`
 	Amount      float64         `json:"amount"`
+	Balance     float64         `json:"balance"`
 	CreatedAt   time.Time       `json:"event_date"`
 }
 

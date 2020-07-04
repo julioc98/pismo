@@ -24,6 +24,7 @@ func Migrate(conn *gorm.DB) {
 	conn.Create(&transaction.Transaction{
 		AccountID:   1,
 		OperationID: 1,
-		Amount:      -50.55,
+		Amount:      -50.00,
+		Balance:     -50.00,
 	})
 }

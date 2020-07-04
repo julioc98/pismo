@@ -31,7 +31,7 @@ func (s service) Create(t *Transaction) (int, error) {
 	return s.repo.Create(t)
 }
 
-// Get a Account
+// Get a Transaction
 func (s service) Get(id int) (*Transaction, error) {
 	return s.repo.Get(id)
 }
